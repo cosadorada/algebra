@@ -33,11 +33,12 @@ def buchberger_algorithm(polynomials):
 
         _, remainder = s_poly.divide_by_list(G)
         if remainder.terms:
-            G.append(remainder)
-            pairs.extend([(remainder, h) for h in G[:-1]])
+            G.append(remainder) # Add remainder to our basis
+            pairs.extend([(remainder, h) for h in G[:-1]]) # Need to add new pairs
 
     return G
 
+#An example of the algorithm.
 
 f1 = Polynomial({
     Monomial((2, 0)): 1,

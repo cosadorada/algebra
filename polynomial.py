@@ -41,13 +41,6 @@ class Polynomial:
                     result[result_power] = result_coeff
         return Polynomial(result)
 
-    '''def multiply_by_monomial(self, monomial, coefficient):
-        result = {}
-        for power, coeff in self.terms.items():
-            new_power = power + monomial
-            new_coeff = coeff * coefficient
-            result[new_power] = new_coeff
-        return Polynomial(result)'''
 
     def leading_coefficient(self):
         if not self.terms:
@@ -64,15 +57,6 @@ class Polynomial:
             return None
         return Polynomial({self.leading_monomial(): self.leading_coefficient()})
 
-    ''' I think this is covered by mul essentially
-    def multiply_by_monomial(self, monomial, coefficient):
-        result = {}
-        for old_power, old_coeff in self.terms.items():
-            new_power = old_power + monomial
-            new_coeff = old_coeff * coefficient
-            result[new_power] = new_coeff
-        return Polynomial(result)
-    '''
 
     def division_by(self, other):
         if not other.terms:
@@ -163,6 +147,7 @@ class Monomial:
         return all(a <= b for a, b in zip(self.powers, other.powers))
 
     def quotient(self, other):
+        # This returns other / self, so long as self divides other. 
         if not self.divides(other):
             raise ValueError("Monomial does not divide the other")
         return Monomial(b - a for a, b in zip(self.powers, other.powers))
@@ -184,13 +169,11 @@ class Monomial:
     def __hash__(self):
         return hash(self.powers)
 
-    #comparison operators are done well by tuples.
+    #comparison operators are done well by tuples. - lexicographic order.
     def __lt__(self, other):
         return self.powers < other.powers
     def __gt__(self, other):
         return self.powers > other.powers
-    
-        
 
 
 
